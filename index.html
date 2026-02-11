@@ -1,1 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mo's Digital Library</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { margin:0; font-family:'Playfair Display', serif; background:#000; color:#fff; }
+  header { text-align:center; padding:30px; border-bottom:1px solid #ffd700; }
+  header h1 { font-size:2.5rem; color:#ffd700; }
+  .hero { text-align:center; padding:50px 20px; }
+  .hero h2 { font-size:2rem; color:#ffd700; margin-bottom:10px; }
+  .hero p { font-size:1.1rem; max-width:600px; margin:0 auto; }
+  .books-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:20px; padding:40px 20px; }
+  .book-card { background:#111; border:1px solid #ffd700; border-radius:10px; text-align:center; padding:20px; transition:transform 0.3s; }
+  .book-card:hover { transform:scale(1.05); }
+  .book-card img { width:100%; height:300px; object-fit:cover; border-radius:5px; margin-bottom:15px; }
+  .book-card h3 { color:#ffd700; margin-bottom:10px; }
+  .book-card button { background:#ffd700; color:#000; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:bold; }
+  .book-card button:hover { background:#e6c200; }
+  .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background:rgba(0,0,0,0.9); }
+  .modal-content { background:#111; margin:10% auto; padding:20px; border:1px solid #ffd700; width:90%; max-width:500px; border-radius:10px; text-align:center; position:relative; }
+  .close { color:#ffd700; position:absolute; top:10px; right:20px; font-size:2rem; cursor:pointer; }
+  footer { text-align:center; padding:20px; border-top:1px solid #ffd700; margin-top:40px; }
+</style>
+</head>
+<body>
 
+<header>
+  <h1>Mo's Digital Library</h1>
+</header>
+
+<section class="hero">
+  <h2>Welcome to Mo's Digital Library</h2>
+  <p>Explore inspirational books. Click on a book to see details and purchase your copy.</p>
+</section>
+
+<section class="books-grid">
+  <!-- Placeholder Books -->
+  <div class="book-card" data-title="Book 1" data-description="Mini description of Book 1" data-link="#">
+    <img src="https://via.placeholder.com/200x300.png?text=Book+1" alt="Book 1">
+    <h3>Book 1</h3>
+    <button onclick="openModal(this)">View</button>
+  </div>
+  <div class="book-card" data-title="Book 2" data-description="Mini description of Book 2" data-link="#">
+    <img src="https://via.placeholder.com/200x300.png?text=Book+2" alt="Book 2">
+    <h3>Book 2</h3>
+    <button onclick="openModal(this)">View</button>
+  </div>
+  <div class="book-card" data-title="Book 3" data-description="Mini description of Book 3" data-link="#">
+    <img src="https://via.placeholder.com/200x300.png?text=Book+3" alt="Book 3">
+    <h3>Book 3</h3>
+    <button onclick="openModal(this)">View</button>
+  </div>
+  <!-- Add more placeholders as needed -->
+</section>
+
+<!-- Modal -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalTitle">Book Title</h2>
+    <p id="modalDescription">Book Description</p>
+    <a id="modalBuy" href="#" target="_blank"><button>Buy</button></a>
+  </div>
+</div>
+
+<footer>
+  <p>&copy; 2026 Mo's Digital Library. All Rights Reserved.</p>
+</footer>
+
+<script>
+let selectedBook = null;
+function openModal(button){
+  const card = button.parentElement;
+  selectedBook = {
+    title: card.getAttribute("data-title"),
+    description: card.getAttribute("data-description"),
+    link: card.getAttribute("data-link")
+  };
+  document.getElementById("modalTitle").innerText = selectedBook.title;
+  document.getElementById("modalDescription").innerText = selectedBook.description;
+  document.getElementById("modalBuy").href = selectedBook.link;
+  document.getElementById("modal").style.display = "block";
+}
+function closeModal(){
+  document.getElementById("modal").style.display = "none";
+}
+window.onclick = function(event){
+  const modal = document.getElementById("modal");
+  if(event.target === modal){ closeModal(); }
+}
+</script>
+
+</body>
+</html>
